@@ -4,7 +4,7 @@ WORKDIR app/
 
 RUN python -m pip install --upgrade pip
 
-COPY app/requirements.txt requirements.txt
+COPY flask/requirements.txt requirements.txt
 RUN python -m pip install -r requirements.txt
 
-COPY app/ .
+COPY flask/ .

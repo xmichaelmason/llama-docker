@@ -4,7 +4,7 @@ services:
   web:
     build:
       context: .
-      dockerfile: app/Dockerfile.flask
+      dockerfile: flask/Dockerfile.flask
     restart: always
     ports:
       - "5000:5000"
@@ -12,8 +12,9 @@ services:
       - mariadb
       - mongo
       - redis
+      - cuda
     volumes:
-      - ./app:/app
+      - ./flask:/app
     depends_on:
       - mariadb
       - mongo
@@ -21,6 +22,39 @@ services:
     env_file: 
       - .env
     command: gunicorn -w 2 -b :5000 app:app
+
+  cuda:
+    build:
+      context: .
+      dockerfile: cuda/Dockerfile.cuda
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu, compute, utility]
+    restart: always
+    ports:
+      - "5001:8080"
+    links:
+      - mariadb
+      - mongo
+      - redis
+    volumes:
+      - ./cuda:/app
+      - ~/llm/models:/models
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    depends_on:
+      - mariadb
+      - mongo
+      - redis
+    env_file: 
+      - .env
+    command: python3 -m llama_cpp.server --config_file llama_config.json
 
   mariadb:
     image: mariadb
@@ -33,13 +67,13 @@ services:
       MYSQL_PASSWORD: $MYSQL_PASSWORD
       MYSQL_DATABASE: mariadb-example
     ports:
-      - "5001:3306"
+      - "5002:3306"
 
   mongo:
     image: mongo
     restart: always
     ports:
-      - "5002:27017"
+      - "5003:27017"
     environment:
       MONGO_INITDB_ROOT_USERNAME: $MONGO_INITDB_ROOT_USERNAME
       MONGO_INITDB_ROOT_PASSWORD: $MONGO_INITDB_ROOT_PASSWORD
@@ -52,6 +86,6 @@ services:
     restart: always
     command: redis-server --requirepass $REDIS_PASSWORD
     ports:
-      - "5003:6379"
+      - "5004:6379"
     volumes:
       - ./redis:/data
