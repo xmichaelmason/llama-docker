@@ -1,0 +1,6 @@
+Flask
+Flask-SQLAlchemy
+gunicorn
+pymysql
+pymongo
+redis

@@ -1,0 +1,57 @@
+version: '3'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: app/Dockerfile.flask
+    restart: always
+    ports:
+      - "5000:5000"
+    links:
+      - mariadb
+      - mongo
+      - redis
+    volumes:
+      - ./app:/app
+    depends_on:
+      - mariadb
+      - mongo
+      - redis
+    env_file: 
+      - .env
+    command: gunicorn -w 2 -b :5000 app:app
+
+  mariadb:
+    image: mariadb
+    restart: always
+    volumes:
+      - ./mysql:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
+      MYSQL_USER: $MYSQL_USER
+      MYSQL_PASSWORD: $MYSQL_PASSWORD
+      MYSQL_DATABASE: mariadb-example
+    ports:
+      - "5001:3306"
+
+  mongo:
+    image: mongo
+    restart: always
+    ports:
+      - "5002:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: $MONGO_INITDB_ROOT_USERNAME
+      MONGO_INITDB_ROOT_PASSWORD: $MONGO_INITDB_ROOT_PASSWORD
+      MONGO_INITDB_DATABASE: $MONGO_INITDB_DATABASE
+    volumes:
+      - ./mongo:/data/db
+
+  redis:
+    image: redis
+    restart: always
+    command: redis-server --requirepass $REDIS_PASSWORD
+    ports:
+      - "5003:6379"
+    volumes:
+      - ./redis:/data
