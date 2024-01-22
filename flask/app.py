@@ -2,7 +2,6 @@ from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from pymongo import MongoClient
 from redis import StrictRedis
-from qdrant_client import QdrantClient
 from openai import OpenAI
 
 app = Flask(__name__)
@@ -17,9 +16,6 @@ mongo_db = mongo_client['mongo-example']
 
 # Redis Configuration
 redis_client = StrictRedis(host='redis', port=6379, password='test')
-
-# Qdrant configuration
-qdrant_client = QdrantClient(host="qdrant", port="6333")
 
 # OpenAI configuration
 openai_client = OpenAI(base_url="http://192.168.1.100:5001/v1", api_key="sk-1234")
@@ -46,12 +42,6 @@ def hello():
         redis_client.ping()
     except Exception as e:
         redis_status = f"Error connecting to Redis: {str(e)}"
-
-    qdrant_status = "Qdrant connection successful"
-    try:
-        qdrant_client.get_collections()
-    except Exception as e:
-        qdrant_status = f"Error connecting to Qdrant: {str(e)}"
 
     try:
         chat_completion = openai_client.chat.completions.create(

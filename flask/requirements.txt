@@ -4,7 +4,6 @@ gunicorn
 pymysql
 pymongo
 redis
-qdrant-client
 llama-index
 langchain
 openai

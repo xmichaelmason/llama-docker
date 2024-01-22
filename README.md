@@ -6,7 +6,6 @@ llama-docker
 - mariadb
 - mongodb
 - redis
-- qdrant
 - TODO: stable diffusion
 
 Host system requires docker engine, nvidia drivers, nvidia-container-toolkit, nvidia-cuda-toolkit
@@ -19,11 +18,13 @@ Change your environment variables in .env, don't track changes to the file. This
 
 ```sh
 cd llama-docker
+docker build -t base_image -f Dockerfile.base .
+
 docker compose up -d # start the containers
 docker compose stop # stop the containers
 ```
 
-After making changes to the flask app, rebuild the containers:
+After making changes, rebuild the containers:
 ```sh
 docker compose up --build -d
 ```
@@ -61,7 +62,6 @@ docker compose up -d
 [+] Running 6/6
  ✔ Container llama-docker-qdrant-1   Running                                                                                                                         0.0s 
  ✔ Container llama-docker-mongo-1    Running                                                                                                                         0.0s 
- ✔ Container llama-docker-redis-1    Running                                                                                                                         0.0s 
  ✔ Container llama-docker-mariadb-1  Running                                                                                                                         0.0s 
  ✔ Container llama-docker-cuda-1     Running                                                                                                                         0.0s 
  ✔ Container llama-docker-flask-1    Started                                                                                                                         1.2s     
@@ -73,7 +73,6 @@ docker ps
 CONTAINER ID   IMAGE                COMMAND                  CREATED             STATUS             PORTS                                                 NAMES
 48ee8e97be62   llama-docker-flask   "gunicorn -w 2 -b :5…"   57 minutes ago      Up 57 minutes      0.0.0.0:5000->5000/tcp, :::5000->5000/tcp             llama-docker-flask-1
 a210a68f4551   llama-docker-cuda    "python3 -m llama_cp…"   About an hour ago   Up About an hour   0.0.0.0:5001->8080/tcp, :::5001->8080/tcp             llama-docker-cuda-1
-f0f8411cd57a   qdrant/qdrant        "./qdrant --uri http…"   About an hour ago   Up About an hour   6334/tcp, 0.0.0.0:5005->6333/tcp, :::5005->6333/tcp   llama-docker-qdrant-1
 2f33a5c8f961   mariadb              "docker-entrypoint.s…"   About an hour ago   Up About an hour   0.0.0.0:5002->3306/tcp, :::5002->3306/tcp             llama-docker-mariadb-1
 623f68ec83af   mongo                "docker-entrypoint.s…"   About an hour ago   Up About an hour   0.0.0.0:5003->27017/tcp, :::5003->27017/tcp           llama-docker-mongo-1
 67b5f456921a   redis                "docker-entrypoint.s…"   About an hour ago   Up About an hour   0.0.0.0:5004->6379/tcp, :::5004->6379/tcp             llama-docker-redis-1
