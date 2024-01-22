@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  web:
+  flask:
     build:
       context: .
       dockerfile: flask/Dockerfile.flask
@@ -19,6 +19,7 @@ services:
       - mariadb
       - mongo
       - redis
+      - cuda
     env_file: 
       - .env
     command: gunicorn -w 2 -b :5000 app:app
@@ -89,3 +90,12 @@ services:
       - "5004:6379"
     volumes:
       - ./redis:/data
+
+  qdrant:
+    image: qdrant/qdrant
+    restart: always
+    ports: 
+      - "5005:6333"
+    volumes:
+      - ./qdrant:/qdrant/storage
+    command: ./qdrant --uri http://qdrant_primary:6335
