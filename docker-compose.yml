@@ -85,12 +85,3 @@ services:
       - "6002:6379"
     volumes:
       - ./redis:/data
-
-  qdrant:
-    image: qdrant/qdrant
-    restart: always
-    ports: 
-      - "6003:6333"
-    volumes:
-      - ./qdrant:/qdrant/storage
-    command: ./qdrant --uri http://qdrant_primary:6335
