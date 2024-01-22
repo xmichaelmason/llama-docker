@@ -30,12 +30,6 @@ docker compose up --build -d
 ### Flask server
 - Point web browser to http://{ip address}:5000
 
-<style>
-    img {
-        width: 50%;
-        height: 50%;
-    }
-</style>
 ![Alt text](initial_run.png)
 
 ### llama-cpp-python OpenAI compatible server
