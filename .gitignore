@@ -1,5 +1,7 @@
+env/
 __pycache__/
 
 mongo/
 mysql/
 redis/
+qdrant/
