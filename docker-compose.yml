@@ -1,6 +1,11 @@
 version: '3'
 
 services:
+  base_image:
+    build:
+      context: .
+      dockerfile: Dockerfile.base
+
   flask:
     build:
       context: .
@@ -12,22 +17,22 @@ services:
       - mariadb
       - mongo
       - redis
-      - cuda
+      - llama_cpp_python
     volumes:
       - ./flask:/app
     depends_on:
       - mariadb
       - mongo
       - redis
-      - cuda
+      - llama_cpp_python
     env_file: 
       - .env
     command: gunicorn -w 2 -b :5000 app:app
 
-  cuda:
+  llama_cpp_python:
     build:
       context: .
-      dockerfile: cuda/Dockerfile.cuda
+      dockerfile: llama_cpp_python/Dockerfile.llama_cpp_python
     deploy:
       resources:
         reservations:
@@ -38,23 +43,13 @@ services:
     restart: always
     ports:
       - "5001:8080"
-    links:
-      - mariadb
-      - mongo
-      - redis
     volumes:
-      - ./cuda:/app
+      - ./llama_cpp_python:/app
       - ~/llm/models:/models
     ulimits:
       memlock:
         soft: -1
         hard: -1
-    depends_on:
-      - mariadb
-      - mongo
-      - redis
-    env_file: 
-      - .env
     command: python3 -m llama_cpp.server --config_file llama_config.json
 
   mariadb:
@@ -68,13 +63,13 @@ services:
       MYSQL_PASSWORD: $MYSQL_PASSWORD
       MYSQL_DATABASE: mariadb-example
     ports:
-      - "5002:3306"
+      - "6000:3306"
 
   mongo:
     image: mongo
     restart: always
     ports:
-      - "5003:27017"
+      - "6001:27017"
     environment:
       MONGO_INITDB_ROOT_USERNAME: $MONGO_INITDB_ROOT_USERNAME
       MONGO_INITDB_ROOT_PASSWORD: $MONGO_INITDB_ROOT_PASSWORD
@@ -87,7 +82,7 @@ services:
     restart: always
     command: redis-server --requirepass $REDIS_PASSWORD
     ports:
-      - "5004:6379"
+      - "6002:6379"
     volumes:
       - ./redis:/data
 
@@ -95,7 +90,7 @@ services:
     image: qdrant/qdrant
     restart: always
     ports: 
-      - "5005:6333"
+      - "6003:6333"
     volumes:
       - ./qdrant:/qdrant/storage
     command: ./qdrant --uri http://qdrant_primary:6335

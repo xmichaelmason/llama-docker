@@ -19,11 +19,13 @@ Change your environment variables in .env, don't track changes to the file. This
 
 ```sh
 cd llama-docker
+docker build -t base_image -f Dockerfile.base .
+
 docker compose up -d # start the containers
 docker compose stop # stop the containers
 ```
 
-After making changes to the flask app, rebuild the containers:
+After making changes, rebuild the containers:
 ```sh
 docker compose up --build -d
 ```
