@@ -52,6 +52,29 @@ services:
         hard: -1
     command: python3 -m llama_cpp.server --config_file llama_config.json
 
+  stable_diffusion:
+    build:
+      context: .
+      dockerfile: stable_diffusion/Dockerfile.stable_diffusion
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu, compute, utility]
+    restart: always
+    ports:
+      - "5002:8000"
+    volumes:
+      - ./stable_diffusion:/app
+      - ~/llm/models:/models
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    command: uvicorn --host 0.0.0.0 --port 8000 app:app
+
   mariadb:
     image: mariadb
     restart: always
