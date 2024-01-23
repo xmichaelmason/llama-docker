@@ -2,7 +2,7 @@ llama-cpp-python, dockerized with cuda.
 
 llama-docker
 - llama-cpp-python with cuda
-- stable diffusion with cuda (test!) (modified https://github.com/monatis/stable-diffusion-tf-docker/blob/main/app.py)
+- stable diffusion with cuda (test cuda! img gen wip) (modified https://github.com/monatis/stable-diffusion-tf-docker/blob/main/app.py)
 - flask
 - mariadb
 - mongodb
