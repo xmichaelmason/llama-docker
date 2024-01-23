@@ -1,12 +1,12 @@
 llama-cpp-python, dockerized with cuda.
 
 llama-docker
-- cuda
+- llama-cpp-python with cuda
+- stable diffusion with cuda (test!) (modified https://github.com/monatis/stable-diffusion-tf-docker/blob/main/app.py)
 - flask
 - mariadb
 - mongodb
 - redis
-- TODO: stable diffusion
 
 Host system requires docker engine, nvidia drivers, nvidia-container-toolkit, nvidia-cuda-toolkit
 
@@ -92,6 +92,10 @@ INFO:     Application startup complete.
 INFO:     Uvicorn running on http://0.0.0.0:8080 (Press CTRL+C to quit)
 ```
 
+## Stable Diffusion
+![Alt text](stable_diffusion/sd_init.png)
+
+
 ## Qdrant vector db
 https://python-client.qdrant.tech/
 
@@ -100,3 +104,9 @@ https://docs.llamaindex.ai/en/stable/examples/vector_stores/QdrantIndexDemo.html
 
 ## langchain
 https://python.langchain.com/docs/get_started/quickstart
+
+
+### TODO:
+- docker optimizations
+- explore transitioning away from llama-cpp-python
+- ...

@@ -1,0 +1,7 @@
+tensorflow
+transformers
+xformers
+diffusers
+invisible-watermark
+fastapi
+uvicorn
