@@ -5,3 +5,5 @@ scipy
 safetensors
 uvicorn
 fastapi
+xformers
+huggingface-hub

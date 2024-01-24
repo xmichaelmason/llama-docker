@@ -1,28 +1,37 @@
-import os
-import sys
-from fastapi import FastAPI, HTTPException
-from fastapi.responses import FileResponse
-from pydantic import BaseModel, Field
-from diffusers import StableDiffusionPipeline, EulerDiscreteScheduler
+from fastapi import FastAPI
+from pydantic import BaseModel
+from diffusers import StableDiffusionPipeline
+import torch
+from pathlib import Path
+import logging
+from huggingface_hub import login
 
+
+logger = logging.getLogger(__name__)
 app = FastAPI()
-
-# Directory to store generated images
-DATA_DIR = "/app/data"
-os.makedirs(DATA_DIR, exist_ok=True)
 
 class ImageRequest(BaseModel):
     prompt: str
 
-model_id = "file:///models/stable-diffusion"
+# get your account token from https://huggingface.co/settings/tokens
+token = ''
+
 
 @app.post("/generate_image")
 def generate_image(request: ImageRequest):
-    prompt = request.prompt
-    scheduler = EulerDiscreteScheduler.from_pretrained(model_id, subfolder="scheduler")
-    pipe = StableDiffusionPipeline.from_pretrained(model_id, scheduler=scheduler, torch_dtype=torch.float16)
-    pipe = pipe.to("cuda")
-    image = pipe(prompt).images[0]
-    output_image_path = os.path.join(DATA_DIR, "generated_image.png")
-    image.save(output_image_path)
-    return FileResponse(path=output_image_path, filename="generated_image.png")
+    try:
+        pipe = StableDiffusionPipeline.from_pretrained("stabilityai/stable-diffusion-2-1", use_safetensors=True, token=token)
+        if torch.cuda.is_available():
+            pipe.to("cuda")
+        images = pipe(request.prompt).images
+
+        output = Path("./data")
+        output.mkdir(parents=True, exist_ok=True)
+        for i in range(len(images)):
+            images[i].save(output / f"{i}.png")
+
+        return {"message": "Image generation successful"}
+    except Exception as e:
+        error_message = f"An error occurred during image generation: {str(e)}"
+        logger.exception(error_message)
+        return {"error": error_message}, 500
