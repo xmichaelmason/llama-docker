@@ -31,7 +31,7 @@ docker exec -it {container id} /bin/bash # enter container cli
 
 ## Flask Server
 - Access: http://{ip address}:5000
-  ![Initial Run](initial_run.png)
+  ![Initial Run](assets/initial_run.png)
 
 ## llama-cpp-python OpenAI Compatible Server
 - Access: http://{ip address}:5001
@@ -43,12 +43,12 @@ docker exec -it {container id} /bin/bash # enter container cli
 
 ## Stable Diffusion (WIP)
 - Access: http://{ip address}:5002
-![Stable Diffusion](stable_diffusion/sd_init.png)
+![Stable Diffusion](assets/sd_init.png)
 
 ## Grafana
 - http://{ip address}:7000
 - username/password: admin/admin
-![Grafana](grafana_init.png)
+![Grafana](assets/grafana_init.png)
 
 ## Additional Resources
 - [Redis Docs](https://redis.io/docs/)
