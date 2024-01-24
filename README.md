@@ -41,9 +41,9 @@ docker exec -it {container id} /bin/bash # enter container cli
 - Multi-model support: [Configuration and Multi-model Support](https://llama-cpp-python.readthedocs.io/en/latest/server/#configuration-and-multi-model-support)
 - Configuration file: llama_config.json
 
-## Stable Diffusion (WIP)
+## Stable Diffusion
 - Access: http://{ip address}:5002
-![Stable Diffusion](assets/sd_init.png)
+![Stable Diffusion](assets/0.png)
 
 ## Grafana
 - http://{ip address}:7000
