@@ -108,3 +108,15 @@ services:
       - "6002:6379"
     volumes:
       - ./redis:/data
+
+  grafana:
+    image: grafana/grafana-enterprise
+    container_name: grafana
+    restart: unless-stopped
+    environment:
+     - GF_INSTALL_PLUGINS=grafana-clock-panel
+    ports:
+     - '7000:3000'
+    user: '0'
+    volumes:
+     - './grafana:/var/lib/grafana'

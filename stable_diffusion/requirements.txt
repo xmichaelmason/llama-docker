@@ -5,3 +5,6 @@ diffusers
 invisible-watermark
 fastapi
 uvicorn
+accelerate
+scipy
+safetensors

@@ -5,3 +5,4 @@ mongo/
 mysql/
 redis/
 qdrant/
+grafana/

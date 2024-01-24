@@ -3,7 +3,7 @@
 
 # Dockerized Environment Setup with CUDA
 
-This README provides guidance for setting up a Dockerized environment with CUDA to run various services, including llama-cpp-python, stable diffusion, Flask, mariadb, mongodb, and redis.
+This README provides guidance for setting up a Dockerized environment with CUDA to run various services, including llama-cpp-python, stable diffusion, Flask, mariadb, mongodb, redis, and grafana.
 
 ## Prerequisites
 - [Docker Engine Installation](https://docs.docker.com/engine/install/)
@@ -45,6 +45,11 @@ docker exec -it {container id} /bin/bash # enter container cli
 - Access: http://{ip address}:5002
 ![Stable Diffusion](stable_diffusion/sd_init.png)
 
+## Grafana
+- http://{ip address}:7000
+- username/password: admin/admin
+![Grafana](grafana_init.png)
+
 ## Additional Resources
 - [Redis Docs](https://redis.io/docs/)
 - [MariaDB Docs](https://mariadb.com/kb/en/documentation/)
@@ -52,3 +57,4 @@ docker exec -it {container id} /bin/bash # enter container cli
 - [LLama Index Redis Vector Store](https://docs.llamaindex.ai/en/latest/examples/vector_stores/RedisIndexDemo.html#)
 - [Langchain Docs](https://python.langchain.com/docs/get_started/quickstart)
 - [Flask Docs](https://flask.palletsprojects.com/en/3.0.x/)
+- [Grafana Docs](https://grafana.com/docs/grafana/latest/)
