@@ -13,6 +13,8 @@ services:
     restart: always
     ports:
       - ${FLASK_EXTERNAL_PORT}:5000
+    environment:
+      - HF_TOKEN=${HF_TOKEN}
     links:
       - mariadb
       - mongo
