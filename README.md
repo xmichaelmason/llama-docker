@@ -50,6 +50,11 @@ docker exec -it {container id} /bin/bash # enter container cli
 - username/password: admin/admin
 ![Grafana](assets/grafana_init.png)
 
+## DB
+- MariaDB {ip address}:6000
+- MongoDB {ip address}:6001
+- Redis {ip address}:6002
+
 ## Additional Resources
 - [Redis Docs](https://redis.io/docs/)
 - [MariaDB Docs](https://mariadb.com/kb/en/documentation/)
