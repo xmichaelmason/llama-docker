@@ -60,7 +60,7 @@ def hello():
 
     
 
-    return render_template('index.html', mariadb_status=mariadb_status, mongo_status=mongo_status, redis_status=redis_status, qdrant_status=qdrant_status, openai_status=openai_status)
+    return render_template('index.html', mariadb_status=mariadb_status, mongo_status=mongo_status, redis_status=redis_status, openai_status=openai_status)
 
 
 if __name__ == '__main__':

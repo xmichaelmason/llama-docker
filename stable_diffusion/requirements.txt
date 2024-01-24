@@ -1,10 +1,7 @@
-tensorflow
-transformers
-xformers
 diffusers
-invisible-watermark
-fastapi
-uvicorn
+transformers
 accelerate
 scipy
 safetensors
+uvicorn
+fastapi

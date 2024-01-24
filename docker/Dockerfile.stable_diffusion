@@ -1,0 +1,5 @@
+FROM base_image
+
+COPY stable_diffusion/ .
+
+RUN python3 -m pip install -r requirements.txt
