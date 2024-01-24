@@ -5,6 +5,7 @@ import torch
 from pathlib import Path
 import logging
 from huggingface_hub import login
+import os
 
 
 logger = logging.getLogger(__name__)
@@ -14,7 +15,7 @@ class ImageRequest(BaseModel):
     prompt: str
 
 # get your account token from https://huggingface.co/settings/tokens
-token = ''
+token = os.getenv("HF_TOKEN")
 
 
 @app.post("/generate_image")
