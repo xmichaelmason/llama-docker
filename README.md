@@ -45,7 +45,7 @@ docker exec -it {container id} /bin/bash # enter container cli
 
 ## Stable Diffusion
 - Access: http://{ip address}:5002
-![Stable Diffusion](assets/0.png)
+![Stable Diffusion](assets/horse.png)
 
 ## Grafana
 - http://{ip address}:7000
