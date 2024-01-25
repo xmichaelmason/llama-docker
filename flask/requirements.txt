@@ -1,9 +1,0 @@
-Flask
-Flask-SQLAlchemy
-gunicorn
-pymysql
-pymongo
-redis
-llama-index
-langchain
-openai

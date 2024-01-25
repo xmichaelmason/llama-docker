@@ -17,7 +17,7 @@ This README provides guidance for setting up a Dockerized environment with CUDA 
 ## Building and Running Containers
 ```sh
 cd llama-docker
-docker build -t base_image -f Dockerfile.base . # build the base image
+docker build -t base_image -f docker/Dockerfile.base . # build the base image
 docker compose up --build -d # build and start the containers, detached
 
 ## useful commands
@@ -31,7 +31,7 @@ docker exec -it {container id} /bin/bash # enter container cli
 
 ## Flask Server
 - Access: http://{ip address}:5000
-  ![Initial Run](assets/initial_run.png)
+![Initial Run](assets/initial_run.png)
 
 ## llama-cpp-python OpenAI Compatible Server
 - Access: http://{ip address}:5001
@@ -40,6 +40,8 @@ docker exec -it {container id} /bin/bash # enter container cli
 ### llama-cpp-python OpenAI Compatible Server API Configuration
 - Multi-model support: [Configuration and Multi-model Support](https://llama-cpp-python.readthedocs.io/en/latest/server/#configuration-and-multi-model-support)
 - Configuration file: llama_config.json
+- OPENAI_BASE_URL and OPENAI_API_KEY are set in .env
+  - Interchangeable between local and OpenAI API.
 
 ## Stable Diffusion
 - Access: http://{ip address}:5002

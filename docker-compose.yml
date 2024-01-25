@@ -6,30 +6,34 @@ services:
       context: .
       dockerfile: docker/Dockerfile.base
 
-  flask:
+  webui:
     build:
       context: .
-      dockerfile: docker/Dockerfile.flask
-    restart: always
+      dockerfile: docker/Dockerfile.webui
+    env_file: 
+      - .env
+    restart: unless-stopped
     ports:
-      - ${FLASK_EXTERNAL_PORT}:5000
+      - ${WEBUI_EXTERNAL_PORT}:8000
     environment:
       - HF_TOKEN=${HF_TOKEN}
+      - OPENAI_BASE_URL=${OPENAI_BASE_URL}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
     links:
       - mariadb
       - mongo
       - redis
       - llama_cpp_python
+      - stable_diffusion
     volumes:
-      - ${FLASK_DIRECTORY}:/app
+      - ${WEBUI_DIRECTORY}:/app
     depends_on:
       - mariadb
       - mongo
       - redis
       - llama_cpp_python
-    env_file: 
-      - .env
-    command: gunicorn -w 2 -b :5000 app:app
+      - stable_diffusion
+    command: uvicorn --host 0.0.0.0 --port 8000 app:app
 
   llama_cpp_python:
     build:
@@ -42,7 +46,7 @@ services:
             - driver: nvidia
               count: all
               capabilities: [gpu, compute, utility]
-    restart: always
+    restart: unless-stopped
     ports:
       - ${LLAMA_EXTERNAL_PORT}:8080
     volumes:
@@ -65,7 +69,7 @@ services:
             - driver: nvidia
               count: all
               capabilities: [gpu, compute, utility]
-    restart: always
+    restart: unless-stopped
     ports:
       - ${SD_EXTERNAL_PORT}:8000
     volumes:
@@ -79,7 +83,7 @@ services:
 
   mariadb:
     image: mariadb
-    restart: always
+    restart: unless-stopped
     volumes:
       - ${MARIADB_DIRECTORY}:/var/lib/mysql
     environment:
@@ -92,7 +96,7 @@ services:
 
   mongo:
     image: mongo
-    restart: always
+    restart: unless-stopped
     ports:
       - ${MONGO_EXTERNAL_PORT}:27017
     environment:
@@ -104,7 +108,7 @@ services:
 
   redis:
     image: redis
-    restart: always
+    restart: unless-stopped
     command: redis-server --requirepass $REDIS_PASSWORD
     ports:
       - ${REDIS_EXTERNAL_PORT}:6379
