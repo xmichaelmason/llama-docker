@@ -1,0 +1,7 @@
+fastapi
+jinja2
+sqlalchemy
+pymysql
+pymongo
+redis
+uvicorn

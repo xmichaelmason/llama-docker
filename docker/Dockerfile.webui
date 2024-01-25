@@ -1,6 +1,4 @@
 FROM base_image
 
-COPY flask/requirements.txt requirements.txt
+COPY webui/ .
 RUN python3 -m pip install -r requirements.txt
-
-COPY flask/ .

@@ -1,9 +1,2 @@
-diffusers
-transformers
-accelerate
-scipy
-safetensors
 uvicorn
 fastapi
-xformers
-huggingface-hub
