@@ -35,8 +35,10 @@ docker exec -it {container id} /bin/bash # enter container cli
 ![Initial Run](assets/init_run.png)
 
 ## llama-cpp-python OpenAI Compatible Server
-- Access: http://{ip address}:5001
+- Access: http://{ip address}:5001/docs
 - Model folder configuration: docker-compose.yml
+![OpenAI Compatible API](assets/openai_api.png)
+
 
 ### llama-cpp-python OpenAI Compatible Server API Configuration
 - Multi-model support: [Configuration and Multi-model Support](https://llama-cpp-python.readthedocs.io/en/latest/server/#configuration-and-multi-model-support)
@@ -45,7 +47,8 @@ docker exec -it {container id} /bin/bash # enter container cli
   - Interchangeable between local and OpenAI API.
 
 ## Stable Diffusion
-- Access: http://{ip address}:5002
+- Access: http://{ip address}:5002/docs
+![Stable Diffusion API](assets/sd_api.png)
 ![Stable Diffusion](assets/horse.png)
 
 ## Grafana

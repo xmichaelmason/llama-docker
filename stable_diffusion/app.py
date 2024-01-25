@@ -27,6 +27,8 @@ def generate_image(request: ImageRequest):
             
         images = pipe(request.prompt).images
 
+        del pipe
+
         output = Path("/images")
         output.mkdir(parents=True, exist_ok=True)
         for i in range(len(images)):

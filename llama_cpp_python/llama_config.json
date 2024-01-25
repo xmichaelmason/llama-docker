@@ -3,40 +3,40 @@
     "port": 8080,
     "models": [
         {
-            "model": "/models/llama-2-13b-chat.Q5_K_M.gguf",
+            "model": "/models/mistral-7b-instruct-v0.2.Q5_K_M.gguf",
             "model_alias": "gpt-3.5-turbo",
             "chat_format": "chatml",
-            "n_gpu_layers": 0,
+            "n_gpu_layers": 4,
+            "offload_kqv": true,
+            "n_threads": 12,
+            "n_batch": 512,
+            "n_ctx": 8192
+        },
+        {
+            "model": "/models/phi-2.Q5_K_M.gguf",
+            "model_alias": "phi2",
+            "chat_format": "chatml",
+            "n_gpu_layers": 6,
             "offload_kqv": true,
             "n_threads": 12,
             "n_batch": 512,
             "n_ctx": 2048
         },
         {
-            "model": "/models/nous-hermes-2-mixtral-8x7b-sft.Q5_K_M.gguf",
-            "model_alias": "gpt-4",
-            "chat_format": "chatml",
-            "n_gpu_layers": 2,
-            "offload_kqv": true,
-            "n_threads": 12,
-            "n_batch": 512,
-            "n_ctx": 32768
-        },
-        {
             "model": "/models/NousResearch_Nous-Hermes-2-Vision-GGUF_Q4_0.gguf",
             "model_alias": "gpt-4-vision-preview",
             "chat_format": "llava-1-5",
             "clip_model_path": "/models/mmproj-model-f16.gguf",
-            "n_gpu_layers": 20,
+            "n_gpu_layers": 6,
             "offload_kqv": true,
             "n_threads": 12,
             "n_batch": 512,
             "n_ctx": 4096
         },
         {
-            "model": "/models/codellama-13b-instruct.Q5_K_M.gguf",
-            "model_alias": "copilot-codex",
-            "n_gpu_layers": 20,
+            "model": "/models/stable-code-3b.Q5_K_M.gguf",
+            "model_alias": "code-davinci-002",
+            "n_gpu_layers": 6,
             "offload_kqv": true,
             "n_threads": 12,
             "n_batch": 1024,
