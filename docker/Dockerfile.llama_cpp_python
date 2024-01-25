@@ -1,8 +1,5 @@
-FROM base_image
+FROM cuda_image
 
-COPY llama_cpp_python/requirements.txt requirements.txt
-RUN python3 -m pip install -r requirements.txt
-
-COPY llama_cpp_python/ .
+COPY llama_cpp_python/llama_config.json .
 
 RUN CMAKE_ARGS="-DLLAMA_CUBLAS=on" FORCE_CMAKE=1 pip3 install llama-cpp-python[server]

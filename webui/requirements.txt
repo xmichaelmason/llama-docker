@@ -5,3 +5,7 @@ pymysql
 pymongo
 redis
 uvicorn
+huggingface-hub
+llama-index
+langchain
+openai 

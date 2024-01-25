@@ -5,6 +5,10 @@ services:
     build:
       context: .
       dockerfile: docker/Dockerfile.base
+  cuda_image:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.cuda
 
   webui:
     build:
@@ -17,8 +21,8 @@ services:
       - ${WEBUI_EXTERNAL_PORT}:8000
     environment:
       - HF_TOKEN=${HF_TOKEN}
-      - OPENAI_BASE_URL=${OPENAI_BASE_URL}
-      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - BASE_URL=${OPENAI_BASE_URL}
+      - API_KEY=${OPENAI_API_KEY}
     links:
       - mariadb
       - mongo

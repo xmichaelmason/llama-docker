@@ -18,6 +18,7 @@ This README provides guidance for setting up a Dockerized environment with CUDA 
 ```sh
 cd llama-docker
 docker build -t base_image -f docker/Dockerfile.base . # build the base image
+docker build -t cuda_image -f docker/Dockerfile.cuda . # build the cuda image
 docker compose up --build -d # build and start the containers, detached
 
 ## useful commands

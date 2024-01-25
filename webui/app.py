@@ -12,20 +12,26 @@ app = FastAPI()
 templates = Jinja2Templates(directory="templates")
 
 # MariaDB (MySQL) Configuration
-SQLALCHEMY_DATABASE_URL = "mysql+pymysql://admin:test@mariadb:3306/mariadb-example"
+mariadb_user = os.getenv("MYSQL_USER")
+mariadb_password = os.getenv("MYSQL_PASSWORD")
+mariadb_port = os.getenv("MYSQL_PORT")
+mariadb_database = os.getenv("MYSQL_DATABASE")
+SQLALCHEMY_DATABASE_URL = f"mysql+pymysql://{mariadb_user}:{mariadb_password}@mariadb:{mariadb_port}/{mariadb_database}"
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 # MongoDB Configuration
-mongo_client = MongoClient('mongodb://admin:test@mongo:27017')
+mongo_user = os.getenv("MONGO_INITDB_ROOT_USERNAME")
+mongo_password = os.getenv("MONGO_INITDB_ROOT_PASSWORD")
+mongo_port = os.getenv("MONGO_PORT")
+mongo_client = MongoClient(f'mongodb://{mongo_user}:{mongo_password}@mongo:{mongo_port}')
 mongo_db = mongo_client['mongo-example']
 
 # Redis Configuration
-redis_client = StrictRedis(host='redis', port=6379, password='test')
+redis_client = StrictRedis(host='redis', port=os.getenv("REDIS_PORT"), password=os.getenv("REDIS_PASSWORD"))
 
 # OpenAI configuration
-# Why does os.getenv not work?
-openai_client = OpenAI(base_url="192.168.1.100:5000/v1", api_key="sk-1234")
+openai_client = OpenAI(base_url=os.getenv("OPENAI_BASE_URL"), api_key=os.getenv("OPENAI_API_KEY"))
 
 @app.get("/", response_class=HTMLResponse)
 async def hello(request: Request):

@@ -1,4 +1,5 @@
 FROM base_image
 
-COPY webui/ .
+COPY webui/requirements.txt .
+
 RUN python3 -m pip install -r requirements.txt
