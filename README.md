@@ -48,6 +48,7 @@ docker exec -it {container id} /bin/bash # enter container cli
 
 ## Stable Diffusion
 - Access: http://{ip address}:5002/docs
+- Image saved to assets/sd_images
 ![Stable Diffusion API](assets/sd_api.png)
 ![Stable Diffusion](assets/horse.png)
 
