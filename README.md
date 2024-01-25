@@ -1,4 +1,4 @@
-![Llama in a container](assets/llama-container.png)
+![Llama in a container](assets/llama_container.png)
 
 
 # Llama in a container
@@ -30,9 +30,9 @@ docker logs {container id} # show container logs
 docker exec -it {container id} /bin/bash # enter container cli
 ```
 
-## Flask Server
+## FastAPI/WebUI
 - Access: http://{ip address}:5000
-![Initial Run](assets/initial_run.png)
+![Initial Run](assets/init_run.png)
 
 ## llama-cpp-python OpenAI Compatible Server
 - Access: http://{ip address}:5001
