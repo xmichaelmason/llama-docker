@@ -26,7 +26,7 @@ services:
       - llama_cpp_python
       - stable_diffusion
     volumes:
-      - ${WEBUI_DIRECTORY}:/app
+      - ${WEBUI_DIRECTORY}:${INTERNAL_APP_DIRECTORY}
     depends_on:
       - mariadb
       - mongo
@@ -50,7 +50,7 @@ services:
     ports:
       - ${LLAMA_EXTERNAL_PORT}:8080
     volumes:
-      - ${LLAMA_DIRECTORY}:/app
+      - ${LLAMA_DIRECTORY}:${INTERNAL_APP_DIRECTORY}
       - ${MODEL_DIRECTORY}:/models
     ulimits:
       memlock:
@@ -73,8 +73,9 @@ services:
     ports:
       - ${SD_EXTERNAL_PORT}:8000
     volumes:
-      - ${SD_DIRECTORY}:/app
-      - ${MODEL_DIRECTORY}:/models
+      - ${SD_DIRECTORY}:${INTERNAL_APP_DIRECTORY}
+      - ${SD_IMAGE_DIRECTORY}:${INTERNAL_SD_IMAGE_DIRECTORY}
+      - ${MODEL_DIRECTORY}:${INTERNAL_SD_MODEL_DIRECTORY}
     ulimits:
       memlock:
         soft: -1

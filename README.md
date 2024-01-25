@@ -3,7 +3,7 @@
 
 # Llama in a container
 
-This README provides guidance for setting up a Dockerized environment with CUDA to run various services, including llama-cpp-python, stable diffusion, Flask, mariadb, mongodb, redis, and grafana.
+This README provides guidance for setting up a Dockerized environment with CUDA to run various services, including llama-cpp-python, stable diffusion, mariadb, mongodb, redis, and grafana.
 
 ## Prerequisites
 - [Docker Engine Installation](https://docs.docker.com/engine/install/)

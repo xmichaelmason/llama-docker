@@ -24,16 +24,10 @@ def generate_image(request: ImageRequest):
         pipe = StableDiffusionPipeline.from_pretrained("stabilityai/stable-diffusion-2-1", use_safetensors=True, token=token)
         if torch.cuda.is_available():
             pipe.to("cuda")
-
-        # use less memory?
-        pipe.enable_sequential_cpu_offload()
-        pipe.enable_vae_tiling()
-        pipe.enable_vae_slicing()
-        pipe.enable_model_cpu_offload()
             
         images = pipe(request.prompt).images
 
-        output = Path("./data")
+        output = Path("/images")
         output.mkdir(parents=True, exist_ok=True)
         for i in range(len(images)):
             images[i].save(output / f"{i}.png")

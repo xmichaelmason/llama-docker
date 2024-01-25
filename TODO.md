@@ -1,0 +1,1 @@
+- [] hardcoded strings in webui/app.py

@@ -6,6 +6,7 @@ from sqlalchemy.orm import sessionmaker
 from pymongo import MongoClient
 from redis import StrictRedis
 from openai import OpenAI
+import os
 
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
@@ -24,7 +25,7 @@ redis_client = StrictRedis(host='redis', port=6379, password='test')
 
 # OpenAI configuration
 # Why does os.getenv not work?
-openai_client = OpenAI(base_url="http://192.168.1.100:5001/v1", api_key="sk-1234")
+openai_client = OpenAI(base_url="192.168.1.100:5000/v1", api_key="sk-1234")
 
 @app.get("/", response_class=HTMLResponse)
 async def hello(request: Request):
