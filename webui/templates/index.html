@@ -1,18 +1,76 @@
+<!-- index.html -->
+
 <!DOCTYPE html>
 <html>
 
-<head>
-    <title>Jinja2/FastAPI App</title>
-</head>
+    <head>
+        <title>Chatbot</title>
+        <link rel="stylesheet" href="../static/css/styles.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    </head>
 
-<body>
-    <h1>Hello, World!</h1>
+    <body>
+        <div class="container my-5">
+            <h1>Chatbot</h1>
+            <div id="chat-container" class="border p-3 mb-3">
+                <!-- Messages will be dynamically added here -->
+            </div>
+            <form id="chat-form" class="d-flex">
+                <input type="text" id="chat-input" class="form-control me-2" autocomplete="off" />
+                <button type="submit" class="btn btn-primary">Send</button>
+                <button type="button" class="btn btn-secondary ms-2" onclick="clearMessages()">Clear Messages</button>
+            </form>
+        </div>
 
-    <h2>Database Connection Status:</h2>
-    <p>MariaDB: {{ mariadb_status }}</p>
-    <p>MongoDB: {{ mongo_status }}</p>
-    <p>Redis: {{ redis_status }}</p>
-    <p>OpenAI: {{ openai_status }}</p>
-</body>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+            // Send chat message on form submit
+            $('#chat-form').submit(function (event) {
+                event.preventDefault();
+                var message = $('#chat-input').val();
+                sendMessage(message);
+                $('#chat-input').val('');
+            });
+
+            // Clear chat messages
+            function clearMessages() {
+                $.ajax({
+                    url: '/clear_messages',
+                    type: 'POST',
+                    success: function (response) {
+                        $('#chat-container').empty();
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            }
+
+            // Send chat message to the server
+            function sendMessage(message) {
+                $.ajax({
+                    url: '/chat',
+                    type: 'POST',
+                    data: {
+                        message: message
+                    },
+                    success: function (response) {
+                        addMessage('user', message);
+                        addMessage('assistant', response.message);
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            }
+
+            // Add a message to the chat container
+            function addMessage(sender, message) {
+                var messageClass = 'message' + (sender === 'user' ? ' user' : ' assistant');
+                var messageElement = $('<div>').addClass(messageClass).text(message);
+                $('#chat-container').append(messageElement);
+            }
+        </script>
+    </body>
 
 </html>
