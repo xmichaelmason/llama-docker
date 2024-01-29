@@ -1,5 +1,6 @@
 .vscode/
 
+webui/venv/
 env/
 __pycache__/
 

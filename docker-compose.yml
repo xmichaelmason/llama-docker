@@ -37,7 +37,7 @@ services:
       - redis
       - llama_cpp_python
       - stable_diffusion
-    command: uvicorn --host 0.0.0.0 --port 8000 app:app
+    command: flask run --host=0.0.0.0 --port=8000
 
   llama_cpp_python:
     build:

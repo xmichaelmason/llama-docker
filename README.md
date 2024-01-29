@@ -30,9 +30,9 @@ docker logs {container id} # show container logs
 docker exec -it {container id} /bin/bash # enter container cli
 ```
 
-## FastAPI/WebUI
+## Flask Chatbot (WIP)
 - Access: http://{ip address}:5000
-![Initial Run](assets/init_run.png)
+![Flask Chatbot App](assets/chatbot.png)
 
 ## llama-cpp-python OpenAI Compatible Server
 - Access: http://{ip address}:5001/docs
